@@ -5,6 +5,7 @@ if (file_exists(ROOT_PATH.'/vendor/autoload.php') === false) {
     echo "run this command first: composer install";
     exit();
 }
+
 require_once ROOT_PATH.'/vendor/autoload.php';
 require_once ROOT_PATH.'/config/config.php';
 
@@ -18,6 +19,7 @@ $app['data_location'] = $config['data_location'];
 
 // Services
 $app->register(new \IWD\JOBINTERVIEW\Service\CoreServices());
+$app->register(new \IWD\JOBINTERVIEW\Service\LogicServices());
 
 // Routes
 $app->mount('/', new \IWD\JOBINTERVIEW\Controller\CoreRoutes());

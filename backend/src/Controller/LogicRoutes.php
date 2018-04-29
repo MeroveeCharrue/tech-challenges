@@ -24,14 +24,14 @@ class LogicRoutes implements ControllerProviderInterface
          * Surveys
          */
         $logic->get('/surveys', function () use ($app) {
-            return $app->json('request for surveys');
+            return $app->json($app['get_surveys']);
         });
 
         /**
          * Surveys
          */
         $logic->get('/surveys/{code}', function ($code) use ($app) {
-            // TODO exception if survey code doesn't exists.
+            // TODO exception if survey code doesn't exist.
             return $app->json('request for survey '.$code);
         });
 
