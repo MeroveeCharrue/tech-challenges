@@ -5,19 +5,25 @@ if (file_exists(ROOT_PATH.'/vendor/autoload.php') === false) {
     echo "run this command first: composer install";
     exit();
 }
-require_once ROOT_PATH.'/vendor/autoload.php';
 
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Request;
+require_once ROOT_PATH.'/vendor/autoload.php';
+require_once ROOT_PATH.'/config/config.php';
+
 use Silex\Application;
 
 $app = new Application();
-$app->after(function (Request $request, Response $response) {
-    $response->headers->set('Access-Control-Allow-Origin', '*');
-});
-$app->get('/', function () use ($app) {
-    return 'Status OK';
-});
+
+// Configs
+$app['debug'] = $config['debug'] ?? false;
+$app['data_location'] = $config['data_location'];
+
+// Services
+$app->register(new \IWD\JOBINTERVIEW\Service\CoreServices());
+$app->register(new \IWD\JOBINTERVIEW\Service\LogicServices());
+
+// Routes
+$app->mount('/', new \IWD\JOBINTERVIEW\Controller\CoreRoutes());
+$app->mount('/', new \IWD\JOBINTERVIEW\Controller\LogicRoutes());
 
 $app->run();
 
