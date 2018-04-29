@@ -24,6 +24,7 @@ $app->after(function (Request $request, Response $response) {
 
 // Routes
 $app->mount('/', new \IWD\JOBINTERVIEW\Controller\CoreRoutes());
+$app->mount('/', new \IWD\JOBINTERVIEW\Controller\LogicRoutes());
 
 $app->run();
 
