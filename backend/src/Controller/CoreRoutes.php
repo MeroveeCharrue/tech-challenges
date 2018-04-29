@@ -32,6 +32,19 @@ class CoreRoutes implements ControllerProviderInterface
         });
 
         /**
+         * Error handler
+         */
+        $app->error(function (\Exception $e, Request $request, $code) use ($app) {
+            // If debug mode, keep nice error
+            if ($app['debug']) {
+                return;
+            }
+
+            $subRequest = Request::create('/usage/'.$code, 'GET');
+            return $app->handle($subRequest, HttpKernelInterface::SUB_REQUEST);
+        });
+
+        /**
          * Usage
          */
         $core->get('/usage/{errCode}', function ($errCode) use ($app) {
