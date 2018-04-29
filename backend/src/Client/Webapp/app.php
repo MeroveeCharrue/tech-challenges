@@ -8,8 +8,6 @@ if (file_exists(ROOT_PATH.'/vendor/autoload.php') === false) {
 require_once ROOT_PATH.'/vendor/autoload.php';
 require_once ROOT_PATH.'/config/config.php';
 
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Request;
 use Silex\Application;
 
 $app = new Application();
@@ -18,9 +16,8 @@ $app = new Application();
 $app['debug'] = $config['debug'] ?? false;
 $app['data_location'] = $config['data_location'];
 
-$app->after(function (Request $request, Response $response) {
-    $response->headers->set('Access-Control-Allow-Origin', '*');
-});
+// Services
+$app->register(new \IWD\JOBINTERVIEW\Service\CoreServices());
 
 // Routes
 $app->mount('/', new \IWD\JOBINTERVIEW\Controller\CoreRoutes());
