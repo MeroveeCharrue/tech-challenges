@@ -21,9 +21,9 @@ $app['data_location'] = $config['data_location'];
 $app->after(function (Request $request, Response $response) {
     $response->headers->set('Access-Control-Allow-Origin', '*');
 });
-$app->get('/', function () use ($app) {
-    return 'Status OK';
-});
+
+// Routes
+$app->mount('/', new \IWD\JOBINTERVIEW\Controller\CoreRoutes());
 
 $app->run();
 
