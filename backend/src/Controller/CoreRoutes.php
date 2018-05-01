@@ -40,22 +40,16 @@ class CoreRoutes implements ControllerProviderInterface
                 return;
             }
 
-            $subRequest = Request::create('/usage/'.$code, 'GET');
-            return $app->handle($subRequest, HttpKernelInterface::SUB_REQUEST);
+            return $app['app.usage']($code, $e->getMessage());
         });
 
         /**
          * Usage
          */
-        $core->get('/usage/{errCode}', function ($errCode) use ($app) {
-            $response = array();
-            $response['code'] = $errCode;
-            // TODO write usage.
-            // TODO use provider for this.
-            $response['payload'] = 'Usage: Not like this mate.';
-            return $app->json($response, $errCode);
+        $core->get('/usage/{code}', function ($code) use ($app) {
+            return $app['app.usage']($code);
         })
-            ->value('errCode', 200);
+            ->value('code', 200);
 
         return $core;
     }
