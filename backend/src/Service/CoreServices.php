@@ -38,7 +38,21 @@ class CoreServices implements ServiceProviderInterface, BootableProviderInterfac
      * This method should only be used to configure services and parameters.
      * It should not get services.
      *
-     * @param Container $pimple A container instance
+     * @param Container $app A container instance
      */
-    public function register(Container $pimple) {}
+    public function register(Container $app)
+    {
+        // Render exception or basic usage.
+        $app['app.usage'] = $app->protect(function ($code, $message = '') use ($app) {
+            $usage = array();
+
+            $usage['code'] = $code;
+            if ($message) {
+                $usage['message'] = $message;
+            }
+            $usage['usage'] = $app['config']['usage'];
+
+            return $usage;
+        });
+    }
 }

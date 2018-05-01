@@ -15,7 +15,7 @@ $app = new Application();
 
 // Configs
 $app['debug'] = $config['debug'] ?? false;
-$app['data_location'] = $config['data_location'];
+$app['config'] = $config;
 
 // Services
 $app->register(new \IWD\JOBINTERVIEW\Service\CoreServices());
@@ -23,7 +23,7 @@ $app->register(new \IWD\JOBINTERVIEW\Service\LogicServices());
 
 // Routes
 $app->mount('/', new \IWD\JOBINTERVIEW\Controller\CoreRoutes());
-$app->mount('/', new \IWD\JOBINTERVIEW\Controller\LogicRoutes());
+$app->mount('/survey', new \IWD\JOBINTERVIEW\Controller\LogicRoutes());
 
 $app->run();
 
