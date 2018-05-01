@@ -68,18 +68,31 @@ class Survey
     }
 
     /**
+     * Forms an array of raw data from this survey.
+     *
      * @return array
      */
-    public function getAggregatedQuestions() : array
+    public function getSurveyAsArray() : array
+    {
+        $array_survey = array();
+        $array_survey['code'] = $this->getCode();
+        $array_survey['name'] = $this->getName();
+        $array_survey['questions'] = $this->getAggregatedQuestions();
+        return $array_survey;
+    }
+
+    /**
+     * Forms an array of raw data from this survey's questions.
+     *
+     * @return array
+     */
+    protected function getAggregatedQuestions() : array
     {
         $aggregation = array();
         foreach ($this->question_list as $question) {
             switch ($question->getType()) {
                 case 'qcm':
-                    $aggregation['qcm'] = array_combine(
-                        $question->getOptions(),
-                        $question->getAnswer()
-                    );
+                    $aggregation['qcm'] = $question->getAnswer();
                     break;
                 case 'numeric':
                     $aggregation['numeric'] = $question->getAnswer();

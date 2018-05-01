@@ -18,9 +18,4 @@ interface QuestionInterface
      * @return mixed
      */
     public function getAnswer();
-
-    /**
-     * @return mixed
-     */
-    public function getOptions();
 }

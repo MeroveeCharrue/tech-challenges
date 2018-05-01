@@ -7,18 +7,10 @@ use IWD\JOBINTERVIEW\Survey\Model\Question\QuestionAbstract;
 class QuestionQCM extends QuestionAbstract
 {
     /**
-     * @return string[]
-     */
-    public function getOptions() : array
-    {
-        return $this->options;
-    }
-
-    /**
-     * @return bool[]
+     * @return array
      */
     public function getAnswer() : array
     {
-        return $this->answer;
+        return array_combine($this->options, $this->answer);
     }
 }

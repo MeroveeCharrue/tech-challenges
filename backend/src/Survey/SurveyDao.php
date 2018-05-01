@@ -29,7 +29,7 @@ class SurveyDao
     }
 
     /**
-     * Build surveys object from files.
+     * Get all files content and build surveys through survey maker.
      *
      * @return Survey[]
      * @throws \Exception
@@ -45,7 +45,7 @@ class SurveyDao
     }
 
     /**
-     * Read file and convert json into array.
+     * Read json file and convert it into array.
      *
      * @param string $file
      * @return array
@@ -54,6 +54,7 @@ class SurveyDao
     private function fetchData(string $file) : array
     {
         $file_path = $this->data_location.'/'.$file;
+
         if (!is_file($file_path)) {
             throw new \Exception('Unable to find data file.');
         }
@@ -63,7 +64,7 @@ class SurveyDao
     }
 
     /**
-     * Get all file path in directory.
+     * Get all json file from directory.
      *
      * @return string[]
      * @throws \Exception

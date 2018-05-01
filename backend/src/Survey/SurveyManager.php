@@ -28,6 +28,8 @@ class SurveyManager
     }
 
     /**
+     * Get info for each unique survey code.
+     *
      * @return array
      * @throws \Exception
      */
@@ -45,6 +47,8 @@ class SurveyManager
     }
 
     /**
+     * Get answer aggregation by survey code.
+     *
      * @param string $code
      * @return array
      * @throws \Exception
@@ -59,6 +63,7 @@ class SurveyManager
         $date_list = array();
         $qcm = array();
         foreach ($surveys_array as $survey_array) {
+            // Survey info
             $glob['code'] = $survey_array['code'];
             $glob['name'] = $survey_array['name'];
 
@@ -76,8 +81,12 @@ class SurveyManager
             }
         }
 
-        // Average
-        $avg = $sum / count($surveys_array);
+        // Count surveys
+        $nb_survey = count($surveys_array);
+        $glob['survey_taken'] = $nb_survey;
+
+        // Average products
+        $avg = $sum / $nb_survey;
         $glob['average_number_of_products'] = intval($avg);
 
         // Date span
@@ -86,12 +95,14 @@ class SurveyManager
         $glob['last_survey_date'] = end($date_list)->format($this->date_format);
 
         // QCM
-        $glob['sum_qcm'] = $qcm;
+        $glob['best_sellers'] = $qcm;
 
         return $glob;
     }
 
     /**
+     * Get aggregated survey
+     *
      * @param string $code
      * @return array
      * @throws \Exception
@@ -100,12 +111,7 @@ class SurveyManager
     {
         $aggregation = array();
         foreach ($this->getSurveyByCode($code) as $survey) {
-            $current_survey = array();
-            $current_survey['code'] = $survey->getCode();
-            $current_survey['name'] = $survey->getName();
-            $current_survey['questions'] = $survey->getAggregatedQuestions();
-
-            $aggregation[] = $current_survey;
+            $aggregation[] = $survey->getSurveyAsArray();
         }
 
         return $aggregation;

@@ -7,6 +7,8 @@ use IWD\JOBINTERVIEW\Survey\Model\Question\QuestionInterface;
 class SurveyMaker
 {
     /**
+     * Build a complete survey from raw data.
+     *
      * @param array $raw_data
      * @return Survey
      * @throws \Exception
@@ -24,6 +26,8 @@ class SurveyMaker
     }
 
     /**
+     * Build and return a new question.
+     *
      * @param $raw_question
      * @return QuestionInterface
      * @throws \Exception

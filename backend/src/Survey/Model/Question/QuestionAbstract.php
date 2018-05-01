@@ -51,9 +51,4 @@ abstract class QuestionAbstract implements QuestionInterface
     {
         return $this->type;
     }
-
-    /**
-     * @return mixed|void
-     */
-    public function getOptions() {}
 }
