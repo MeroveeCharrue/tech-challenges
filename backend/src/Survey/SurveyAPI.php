@@ -29,4 +29,16 @@ class SurveyAPI
     {
         return $this->surveyManager->getUniqueCodes();
     }
+
+    /**
+     * @route "/survey/{code}"
+     *
+     * @param string $code
+     * @return array
+     * @throws \Exception
+     */
+    public function getAggregationByCode(string $code) : array
+    {
+        return $this->surveyManager->getAggregatedAnswers($code);
+    }
 }
