@@ -1,6 +1,6 @@
 <?php
 
-if (true) {
+if (false) {
     require_once ROOT_PATH . '/config/dev.php';
 }
 
