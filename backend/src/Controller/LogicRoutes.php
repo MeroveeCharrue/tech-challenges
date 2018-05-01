@@ -31,8 +31,7 @@ class LogicRoutes implements ControllerProviderInterface
          * Answers aggregated by survey code.
          */
         $logic->get('/{code}', function ($code) use ($app) {
-            // TODO exception if survey code doesn't exist.
-            return $app->json('request for survey '.$code);
+            return $app['survey.api']->getAggregationByCode($code);
         });
 
         return $logic;
